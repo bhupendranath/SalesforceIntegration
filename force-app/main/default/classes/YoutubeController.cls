@@ -19,13 +19,20 @@ public class YoutubeController {
 
 		dataList = new SuperItemList[]{};
 
+		String apikey = API_TokenController.API_key;
+
+		//Store API token in custom setting
+		//API_Tokens__c k = API_Tokens__c.getValues('Key');
+		
         //End point we have to get from external application
 		//Hardcoded endpoint with search term "q=Salesforce"
 		//String endpoint = 'https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=Salesforce&key=AIzaSyBu12VzobayRhJe-CRR0CIe-IQOclmVKww';
 
 		//Dynamic endpoints with input text "searchQuery"
 		String sanitizeSearchQuery = searchQuery.replaceAll(' ','+'); //it will replace spaces with + symbol and will concatinate the Search String
-        String endpoint = 'https://youtube.googleapis.com/youtube/v3/search?part=snippet&q='+sanitizeSearchQuery+'&key=AIzaSyBu12VzobayRhJe-CRR0CIe-IQOclmVKww';
+		 
+		//Here [callout:YouTube] is named credential we have configured in SF rest are same
+        String endpoint = 'callout:YouTube?part=snippet&q='+sanitizeSearchQuery+'&key='+apikey;
         
         //Step1: Instantiate the HTTP Class
         Http http = new Http();
